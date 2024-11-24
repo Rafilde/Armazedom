@@ -3,34 +3,82 @@ defmodule ArmazedomWeb.UserLoginLive do
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
-      <.header class="text-center">
-        Log in to account
-        <:subtitle>
-          Don't have an account?
-          <.link navigate={~p"/users/register"} class="font-semibold text-brand hover:underline">
-            Sign up
-          </.link>
-          for an account now.
-        </:subtitle>
-      </.header>
+    <div class="min-h-screen flex items-center justify-center bg-gray-50">
+      <div class="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
+        <!-- Header -->
+        <div class="text-center mb-6">
+          <h1 class="text-2xl font-bold text-blue-600">Bem-vindo de volta!</h1>
+          <p class="text-sm text-gray-600 mt-2">
+            Faça login para acessar sua conta e continuar.
+          </p>
+        </div>
 
-      <.simple_form for={@form} id="login_form" action={~p"/users/log_in"} phx-update="ignore">
-        <.input field={@form[:email]} type="email" label="Email" required />
-        <.input field={@form[:password]} type="password" label="Password" required />
+        <!-- Login Form -->
+        <.simple_form for={@form} id="login_form" action={~p"/users/log_in"} phx-update="ignore">
+          <!-- Email Input -->
+          <div class="mb-4">
+            <.input
+              field={@form[:email]}
+              type="email"
+              label="Email"
+              required
+              class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+          </div>
 
-        <:actions>
-          <.input field={@form[:remember_me]} type="checkbox" label="Keep me logged in" />
-          <.link href={~p"/users/reset_password"} class="text-sm font-semibold">
-            Forgot your password?
+          <!-- Password Input -->
+          <div class="mb-4">
+            <.input
+              field={@form[:password]}
+              type="password"
+              label="Senha"
+              required
+              class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+          </div>
+
+          <!-- Remember Me -->
+          <div class="mb-4 flex items-center">
+            <.input
+              field={@form[:remember_me]}
+              type="checkbox"
+              label="Lembrar-me"
+              class="text-sm text-gray-600"
+            />
+          </div>
+
+          <!-- Forgot Password Link -->
+          <div class="mb-4 text-right">
+            <.link
+              href={~p"/users/reset_password"}
+              class="text-sm font-semibold text-blue-600 hover:underline"
+            >
+              Esqueceu sua senha?
+            </.link>
+          </div>
+
+          <!-- Submit Button -->
+          <div>
+            <.button
+              phx-disable-with="Entrando..."
+              class="w-full py-3 px-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
+            >
+              Entrar <span aria-hidden="true">→</span>
+            </.button>
+          </div>
+        </.simple_form>
+
+        <!-- Footer -->
+        <div class="mt-6 text-center text-sm text-gray-600">
+          Não tem uma conta?
+          <.link
+            navigate={~p"/users/register"}
+            class="font-semibold text-blue-600 hover:underline"
+          >
+            Cadastre-se agora
           </.link>
-        </:actions>
-        <:actions>
-          <.button phx-disable-with="Logging in..." class="w-full">
-            Log in <span aria-hidden="true">→</span>
-          </.button>
-        </:actions>
-      </.simple_form>
+        </div>
+      </div>
     </div>
     """
   end
