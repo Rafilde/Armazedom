@@ -8,10 +8,73 @@
       <%= assigns[:page_title] || "Armazedom" %>
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
-    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
-    </script>
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}></script>
   </head>
-  <body class="bg-white">
-    <%= @inner_content %>
+  <body class="bg-gray-50 font-sans antialiased">
+    <!-- Navbar -->
+    <header class="bg-white shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+          <div class="text-xl font-bold text-blue-600">Armazedom</div>
+          <ul class="flex items-center gap-6 text-sm font-medium text-gray-700">
+            <%= if @current_user do %>
+              <li>
+                <span class="text-gray-900 font-semibold">
+                  <%= @current_user.email %>
+                </span>
+              </li>
+              <li>
+                <.link
+                  href={~p"/users/settings"}
+                  class="hover:text-blue-600 transition duration-200"
+                >
+                  Settings
+                </.link>
+              </li>
+              <li>
+                <.link
+                  href={~p"/users/log_out"}
+                  method="delete"
+                  class="hover:text-blue-600 transition duration-200"
+                >
+                  Log out
+                </.link>
+              </li>
+            <% else %>
+              <li>
+                <.link
+                  href={~p"/users/register"}
+                  class="hover:text-blue-600 transition duration-200"
+                >
+                  Register
+                </.link>
+              </li>
+              <li>
+                <.link
+                  href={~p"/users/log_in"}
+                  class="hover:text-blue-600 transition duration-200"
+                >
+                  Log in
+                </.link>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <%= @inner_content %>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+      <div class="max-w-7xl mx-auto text-center">
+        <p>&copy; 2024 Armazedom. All rights reserved.</p>
+      </div>
+    </footer>
   </body>
 </html>
