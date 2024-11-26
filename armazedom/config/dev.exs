@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :armazedom, Armazedom.Repo,
-  username: System.get_env("USER_NAME"),
-  password: System.get_env("PASSWORD"),
+  username: "armazedom_user",
+  password: "armazedom_password",
   hostname: "localhost",
   database: "armazedom_dev",
   stacktrace: true,

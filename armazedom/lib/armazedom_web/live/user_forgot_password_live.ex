@@ -5,26 +5,59 @@ defmodule ArmazedomWeb.UserForgotPasswordLive do
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
-      <.header class="text-center">
-        Forgot your password?
-        <:subtitle>We'll send a password reset link to your inbox</:subtitle>
-      </.header>
-
-      <.simple_form for={@form} id="reset_password_form" phx-submit="send_email">
-        <.input field={@form[:email]} type="email" placeholder="Email" required />
-        <:actions>
-          <.button phx-disable-with="Sending..." class="w-full">
-            Send password reset instructions
-          </.button>
-        </:actions>
-      </.simple_form>
-      <p class="text-center text-sm mt-4">
-        <.link href={~p"/users/register"}>Register</.link>
-        | <.link href={~p"/users/log_in"}>Log in</.link>
+<div class="min-h-screen flex items-center justify-center bg-gray-50">
+  <div class="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
+    <!-- Header -->
+    <div class="text-center mb-6">
+      <h1 class="text-2xl font-bold text-blue-600">Esqueceu sua senha?</h1>
+      <p class="text-sm text-gray-600 mt-2">
+        Enviaremos um link para redefinir sua senha para o seu e-mail.
       </p>
     </div>
-    """
+
+    <!-- Password Reset Form -->
+    <.simple_form for={@form} id="reset_password_form" phx-submit="send_email">
+      <!-- Email Input -->
+      <div class="mb-4">
+        <.input
+          field={@form[:email]}
+          type="email"
+          label="Email"
+          required
+          class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <div>
+        <.button
+          phx-disable-with="Enviando..."
+          class="w-full py-3 px-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
+        >
+          Enviar instruções de redefinição <span aria-hidden="true">→</span>
+        </.button>
+      </div>
+    </.simple_form>
+
+    <!-- Footer -->
+    <div class="mt-6 text-center text-sm text-gray-600">
+      <.link
+        href={~p"/users/register"}
+        class="font-semibold text-blue-600 hover:underline"
+      >
+        Cadastre-se agora
+      </.link>
+      |
+      <.link
+        href={~p"/users/log_in"}
+        class="font-semibold text-blue-600 hover:underline"
+      >
+        Entrar
+      </.link>
+    </div>
+  </div>
+</div>
+"""
   end
 
   def mount(_params, _session, socket) do

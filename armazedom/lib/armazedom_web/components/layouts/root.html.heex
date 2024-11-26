@@ -13,12 +13,14 @@
   <body class="bg-gray-50 font-sans antialiased">
     <!-- Navbar -->
     <header class="bg-white shadow-md">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <%= if @current_user do %>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center py-4">
-          <div class="text-xl font-bold text-blue-600">Armazedom</div>
-          <ul class="flex items-center gap-6 text-sm font-medium text-gray-700">
-            <%= if @current_user do %>
-              <li>
+         <.link href={~p"/"} class="text-xl font-bold text-blue-600">
+  Armazedom
+</.link>
+         <ul class="flex items-center gap-6 text-sm font-medium text-gray-700">
+          <li>
                 <span class="text-gray-900 font-semibold">
                   <%= @current_user.email %>
                 </span>
@@ -28,7 +30,7 @@
                   href={~p"/users/settings"}
                   class="hover:text-blue-600 transition duration-200"
                 >
-                  Settings
+                  Configuração
                 </.link>
               </li>
               <li>
@@ -37,30 +39,14 @@
                   method="delete"
                   class="hover:text-blue-600 transition duration-200"
                 >
-                  Log out
+                  Desconectar
                 </.link>
               </li>
-            <% else %>
-              <li>
-                <.link
-                  href={~p"/users/register"}
-                  class="hover:text-blue-600 transition duration-200"
-                >
-                  Register
-                </.link>
-              </li>
-              <li>
-                <.link
-                  href={~p"/users/log_in"}
-                  class="hover:text-blue-600 transition duration-200"
-                >
-                  Log in
-                </.link>
-              </li>
-            <% end %>
-          </ul>
-        </div>
+         </ul>
+         </div>
       </div>
+        <% end %>
+
     </header>
 
     <!-- Main -->

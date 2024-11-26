@@ -10,7 +10,7 @@ defmodule ArmazedomWeb.UserRegistrationLive do
       <.flash_group flash={@flash} />
 
       <.header class="text-center">
-        Registrar uma conta
+        <h1 class="text-2xl font-bold text-blue-600">Registrar uma conta</h1>
         <:subtitle>
           Já tem uma conta?
           <.link navigate={~p"/users/log_in"} class="font-semibold text-blue-600 hover:underline">

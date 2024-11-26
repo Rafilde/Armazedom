@@ -5,69 +5,134 @@ defmodule ArmazedomWeb.UserSettingsLive do
 
   def render(assigns) do
     ~H"""
-    <.header class="text-center">
-      Account Settings
-      <:subtitle>Manage your account email address and password settings</:subtitle>
-    </.header>
+    <div class="min-h-screen flex items-center justify-center bg-gray-50">
+      <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full">
+        <!-- Header -->
+        <div class="text-center mb-6">
+          <h1 class="text-2xl font-bold text-blue-600">Configurações da Conta</h1>
+          <p class="text-sm text-gray-600 mt-2">
+            Gerencie seu endereço de e-mail e configurações de senha
+          </p>
+        </div>
 
-    <div class="space-y-12 divide-y">
-      <div>
-        <.simple_form
-          for={@email_form}
-          id="email_form"
-          phx-submit="update_email"
-          phx-change="validate_email"
-        >
-          <.input field={@email_form[:email]} type="email" label="Email" required />
-          <.input
-            field={@email_form[:current_password]}
-            name="current_password"
-            id="current_password_for_email"
-            type="password"
-            label="Current password"
-            value={@email_form_current_password}
-            required
-          />
-          <:actions>
-            <.button phx-disable-with="Changing...">Change Email</.button>
-          </:actions>
-        </.simple_form>
-      </div>
-      <div>
-        <.simple_form
-          for={@password_form}
-          id="password_form"
-          action={~p"/users/log_in?_action=password_updated"}
-          method="post"
-          phx-change="validate_password"
-          phx-submit="update_password"
-          phx-trigger-action={@trigger_submit}
-        >
-          <input
-            name={@password_form[:email].name}
-            type="hidden"
-            id="hidden_user_email"
-            value={@current_email}
-          />
-          <.input field={@password_form[:password]} type="password" label="New password" required />
-          <.input
-            field={@password_form[:password_confirmation]}
-            type="password"
-            label="Confirm new password"
-          />
-          <.input
-            field={@password_form[:current_password]}
-            name="current_password"
-            type="password"
-            label="Current password"
-            id="current_password_for_password"
-            value={@current_password}
-            required
-          />
-          <:actions>
-            <.button phx-disable-with="Changing...">Change Password</.button>
-          </:actions>
-        </.simple_form>
+        <!-- Email Settings Form -->
+        <div class="space-y-12 divide-y">
+          <div>
+            <.simple_form
+              for={@email_form}
+              id="email_form"
+              phx-submit="update_email"
+              phx-change="validate_email"
+            >
+              <div class="mb-4">
+                <.input
+                  field={@email_form[:email]}
+                  type="email"
+                  label="Email"
+                  required
+                  class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
+              </div>
+
+              <div class="mb-4">
+                <.input
+                  field={@email_form[:current_password]}
+                  name="current_password"
+                  id="current_password_for_email"
+                  type="password"
+                  label="Senha atual"
+                  value={@email_form_current_password}
+                  required
+                  class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
+              </div>
+
+              <:actions>
+                <div>
+                  <.button phx-disable-with="Alterando..."
+                    class="w-full py-3 px-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Alterar e-mail
+                  </.button>
+                </div>
+              </:actions>
+            </.simple_form>
+          </div>
+
+          <!-- Password Settings Form -->
+          <div>
+            <.simple_form
+              for={@password_form}
+              id="password_form"
+              action={~p"/users/log_in?_action=password_updated"}
+              method="post"
+              phx-change="validate_password"
+              phx-submit="update_password"
+              phx-trigger-action={@trigger_submit}
+            >
+              <input
+                name={@password_form[:email].name}
+                type="hidden"
+                id="hidden_user_email"
+                value={@current_email}
+              />
+              <div class="mb-4">
+                <.input
+                  field={@password_form[:password]}
+                  type="password"
+                  label="Nova senha"
+                  required
+                  class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
+              </div>
+              <div class="mb-4">
+                <.input
+                  field={@password_form[:password_confirmation]}
+                  type="password"
+                  label="Confirmar nova senha"
+                  class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
+              </div>
+              <div class="mb-4">
+                <.input
+                  field={@password_form[:current_password]}
+                  name="current_password"
+                  type="password"
+                  label="Senha atual"
+                  id="current_password_for_password"
+                  value={@current_password}
+                  required
+                  class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                />
+              </div>
+
+              <:actions>
+                <div>
+                  <.button phx-disable-with="Alterando..."
+                    class="w-full py-3 px-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Alterar senha
+                  </.button>
+                </div>
+              </:actions>
+            </.simple_form>
+          </div>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="mt-6 text-center text-sm text-gray-600">
+          <.link
+            href={~p"/users/register"}
+            class="font-semibold text-blue-600 hover:underline"
+          >
+            Cadastre-se agora
+          </.link>
+          |
+          <.link
+            href={~p"/users/log_in"}
+            class="font-semibold text-blue-600 hover:underline"
+          >
+            Entrar
+          </.link>
+        </div>
       </div>
     </div>
     """
@@ -77,10 +142,10 @@ defmodule ArmazedomWeb.UserSettingsLive do
     socket =
       case Accounts.update_user_email(socket.assigns.current_user, token) do
         :ok ->
-          put_flash(socket, :info, "Email changed successfully.")
+          put_flash(socket, :info, "Email alterado com sucesso.")
 
         :error ->
-          put_flash(socket, :error, "Email change link is invalid or it has expired.")
+          put_flash(socket, :error, "O link de alteração de e-mail é inválido ou expirou.")
       end
 
     {:ok, push_navigate(socket, to: ~p"/users/settings")}
@@ -127,7 +192,7 @@ defmodule ArmazedomWeb.UserSettingsLive do
           &url(~p"/users/settings/confirm_email/#{&1}")
         )
 
-        info = "A link to confirm your email change has been sent to the new address."
+        info = "Um link para confirmar a alteração do e-mail foi enviado para o novo endereço."
         {:noreply, socket |> put_flash(:info, info) |> assign(email_form_current_password: nil)}
 
       {:error, changeset} ->
