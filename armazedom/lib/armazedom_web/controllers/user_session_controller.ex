@@ -23,6 +23,8 @@ defmodule ArmazedomWeb.UserSessionController do
 
     if user = Accounts.get_user_by_email_and_password(email, password) do
       conn
+      # Armazenando o ID do usuário na sessão
+      |> put_session(:user_id, user.id)
       |> put_flash(:info, info)
       |> UserAuth.log_in_user(user, user_params)
     else

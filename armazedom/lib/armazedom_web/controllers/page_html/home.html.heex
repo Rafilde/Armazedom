@@ -47,7 +47,7 @@
     </div>
   </div>
 
-  <!-- Table -->
+  <!-- Tabela de Transações -->
   <div class="mt-6">
     <h2 class="text-lg font-medium text-zinc-900">Transações</h2>
     <div class="mt-4 overflow-hidden rounded-lg border border-zinc-300 bg-white shadow-md">
@@ -75,86 +75,18 @@
               <button class="text-red-600 hover:underline ml-4">Excluir</button>
             </td>
           </tr>
-          <tr class="border-b last:border-none hover:bg-zinc-50">
-            <td class="px-6 py-3">Aluguel</td>
-            <td class="px-6 py-3">Despesa</td>
-            <td class="px-6 py-3">01/11/2024</td>
-            <td class="px-6 py-3 text-red-600">- R$ 1.200,00</td>
-            <td class="px-6 py-3">Mensal</td>
-            <td class="px-6 py-3">
-              <button class="text-blue-600 hover:underline">Editar</button>
-              <button class="text-red-600 hover:underline ml-4">Excluir</button>
-            </td>
-          </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- CRUD -->
+  <!-- Botões de Adicionar Receita ou Despesa -->
   <div class="mt-6 flex justify-end">
-    <button
-      onclick="openModal()"
-      class="rounded-lg bg-blue-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-600/90 focus:ring-2 focus:ring-blue-600"
-    >
-      Adicionar Transação
-    </button>
+    <a href="/add/incomes" class="rounded-lg bg-green-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-green-600/90 focus:ring-2 focus:ring-green-600">
+      Adicionar Receita
+    </a>
+    <a href="/add/expenses" class="rounded-lg bg-red-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-red-600/90 focus:ring-2 focus:ring-red-600 ml-4">
+      Adicionar Despesa
+    </a>
   </div>
-
-  <!-- Modal -->
-  <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-    <div class="bg-white rounded-lg p-8 w-96">
-      <h3 class="text-lg font-medium text-zinc-900">Adicionar Nova Transação</h3>
-      <form>
-        <div class="mt-4">
-          <label class="block text-sm font-medium text-zinc-900">Descrição</label>
-          <input type="text" class="block w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600" />
-        </div>
-        <div class="mt-4">
-          <label class="block text-sm font-medium text-zinc-900">Categoria</label>
-          <select class="block w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600">
-            <option value="receita">Receita</option>
-            <option value="despesa">Despesa</option>
-          </select>
-        </div>
-        <div class="mt-4">
-          <label class="block text-sm font-medium text-zinc-900">Período</label>
-          <select class="block w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600">
-             <option value="mensal">Mensal</option>
-        <option value="semanal">Semanal</option>
-        <option value="anual">Anual</option>
-        <option value="diario">Diário</option>
-        <option value="quinzenal">Quinzenal</option>
-          </select>
-        </div>
-        <div class="mt-4">
-          <label class="block text-sm font-medium text-zinc-900">Valor</label>
-          <input type="number" class="block w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600" />
-        </div>
-        <div class="mt-4">
-          <label class="block text-sm font-medium text-zinc-900">Data</label>
-          <input type="date" class="block w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600" />
-        </div>
-        <div class="mt-6 flex justify-end">
-          <button type="button" onclick="closeModal()" class="rounded-lg bg-gray-300 px-6 py-2 text-sm font-semibold text-zinc-900 shadow-md hover:bg-gray-300/90">
-            Cancelar
-          </button>
-          <button type="submit" class="rounded-lg bg-blue-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-600/90 focus:ring-2 focus:ring-blue-600 ml-4">
-            Salvar
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    // Funções JavaScript para controlar o modal
-    function openModal() {
-      document.getElementById('modal').classList.remove('hidden');
-    }
-
-    function closeModal() {
-      document.getElementById('modal').classList.add('hidden');
-    }
-  </script>
 </div>

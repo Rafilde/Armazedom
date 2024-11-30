@@ -72,4 +72,20 @@ defmodule ArmazedomWeb.Router do
       live "/users/confirm", UserConfirmationInstructionsLive, :new
     end
   end
+
+  scope "/", ArmazedomWeb do
+    pipe_through [:browser, :redirect_if_not_authenticated]
+
+    live "/add/incomes", TransitionLive, :novo_receita
+
+    live "/add/expenses", TransitionLive, :novo_despesa
+  end
+
+  #scope "/", ArmazedomWeb do
+  #  pipe_through [:browser, :redirect_if_not_authenticated]
+
+  #  get "/", PageController, :home
+  #  post "/incomes", IncomeController, :create
+  #end
+
 end
