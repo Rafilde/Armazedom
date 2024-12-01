@@ -1,122 +1,111 @@
-<div class="w-full px-6 py-8 lg:px-12 xl:px-16">
+<div class="px-4 py-6 sm:px-6 sm:py-12 lg:px-8 xl:px-12 xl:py-16">
   <!-- Header -->
-  <div class="mx-auto max-w-6xl lg:mx-0">
-    <h1 class="text-4xl font-extrabold leading-10 text-blue-900">
-      Gerenciador Financeiro
+  <div class="mx-auto max-w-4xl lg:mx-0">
+    <h1 class="text-3xl font-bold leading-9 text-zinc-900">
+      Bem-vindo ao Armazedom
     </h1>
-    <p class="text-md leading-8 text-gray-500">
+    <p class="mt-2 text-lg leading-7 text-zinc-600">
       Gerencie suas receitas e despesas de forma prática e eficiente.
     </p>
   </div>
 
-  <!-- Saldo -->
-  <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-3 lg:grid-cols-3">
-    <div class="bg-green-300 rounded-xl p-4 text-white shadow-md">
-      <h3 class="text-lg text-green-800 font-bold">Receitas</h3>
-      <p class="mt-2 text-xl text-green-800 font-semibold">R$ <%= Decimal.to_string(@total_receitas) %></p>
-    </div>
-    <div class="bg-red-300 rounded-xl p-4 text-white shadow-md">
-      <h3 class="text-lg text-red-800 font-bold">Despesas</h3>
-      <p class="mt-2 text-xl text-red-800 font-semibold">R$ <%= Decimal.to_string(@total_despesas) %></p>
-    </div>
-    <div class="bg-blue-300 rounded-xl p-4 text-white shadow-md">
-      <h3 class="text-lg text-blue-800 font-bold">Balanço Total</h3>
-      <p class="mt-2 text-xl text-blue-800 font-bold">R$ <%= Decimal.to_string(@saldo_total) %></p>
-    </div>
-  </div>
-
-  <!-- Principal -->
-  <div class="mt-4 bg-white rounded-lg shadow-md p-6">
-    <!-- Filtros -->
-    <h2 class="text-lg font-semibold text-blue-900 mb-2">Filtros:</h2>
-    <div class="flex flex-wrap gap-4 mb-6">
+  <!-- Filters Section -->
+  <div class="mt-6">
+    <h2 class="text-lg font-medium text-zinc-900">Filtrar por:</h2>
+    <div class="mt-4 flex flex-col gap-4 sm:flex-row">
       <!-- Tipo de transação -->
-      <select class="w-full sm:w-auto rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600">
-        <option value="todas" class="font-bold">Todos</option>
+      <select class="block w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600 sm:w-auto">
+        <option value="todas" class="font-bold">Todas as transações</option>
         <option value="receitas">Receitas</option>
         <option value="despesas">Despesas</option>
       </select>
+
+
       <!-- Ordenar por -->
-      <select class="w-full sm:w-auto rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600">
+      <select class="block w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600 sm:w-auto">
         <option value="todos-precos" class="font-bold">Todos</option>
         <option value="maiores">Maiores Preços</option>
         <option value="menores">Menores Preços</option>
       </select>
+
       <!-- Filtro de Período -->
-      <select class="w-full sm:w-auto rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600">
-        <option value="todos" class="font-bold">Período</option>
+      <select class="block w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600 sm:w-auto">
+        <option value="todos" class="font-bold">Todos</option>
         <option value="mensal">Mensal</option>
         <option value="semanal">Semanal</option>
         <option value="anual">Anual</option>
         <option value="diario">Diário</option>
         <option value="quinzenal">Quinzenal</option>
       </select>
+
       <!-- Botão de Aplicar Filtros -->
       <button class="rounded-lg bg-blue-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-600/90 focus:ring-2 focus:ring-blue-600">
         Aplicar
       </button>
     </div>
+  </div>
 
-    <!-- Tabela de Transações com Limite de Registros -->
-    <div class="overflow-x-auto">
-      <div class="max-h-[150px] overflow-y-auto rounded-lg border border-zinc-300 bg-white shadow-md">
-        <table class="w-full text-left text-sm text-zinc-600">
-          <thead class="bg-zinc-100 text-zinc-900">
-            <tr>
-              <th class="px-4 py-2">Descrição</th>
-              <th class="px-4 py-2">Tipo</th>
-              <th class="px-4 py-2">Valor</th>
-              <th class="px-4 py-2">Período</th>
-              <th class="px-4 py-2">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Exemplo de transações -->
-            <%= for transaction <- @transactions do %>
-              <tr class="border-b last:border-none hover:bg-zinc-50">
-                <td class="px-4 py-2"><%= transaction.description %></td>
-                <td class="px-4 py-2">
-                  <%= if transaction.type == "receita", do: "Receita", else: "Despesa" %>
-                </td>
-                <td class="px-4 py-2">
-                  <%= if transaction.type == "receita" do %>
-                    <span class="text-green-600">+ <%= Decimal.to_string(transaction.amount) %></span>
-                  <% else %>
-                    <span class="text-red-600">- <%= Decimal.to_string(transaction.amount) %></span>
-                  <% end %>
-                </td>
-                <td class="px-4 py-2"><%= period_to_name(transaction.period) %></td>
-                <td class="px-4 py-2 flex items-center gap-4">
-                  <!-- Ícone de Edição -->
-                  <%= link to: ~p"/transactions/#{transaction.id}/edit", class: "text-blue-600 hover:underline" do %>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                      <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                      <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                    </svg>
-                  <% end %>
+  <!-- Tabela de Transações -->
+  <div class="mt-6">
+    <h2 class="text-lg font-medium text-zinc-900">Transações</h2>
+    <div class="mt-4 overflow-hidden rounded-lg border border-zinc-300 bg-white shadow-md">
+      <table class="w-full text-left text-sm text-zinc-600">
+        <thead class="bg-zinc-50 text-zinc-900">
+          <tr>
+            <th class="px-6 py-3">Descrição</th>
+            <th class="px-6 py-3">Tipo</th>
+            <th class="px-6 py-3">Valor</th>
+            <th class="px-6 py-3">Período</th>
+            <th class="px-6 py-3">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Exemplo de transações -->
+          <%= for transaction <- @transactions do %>
+  <tr class="border-b last:border-none hover:bg-zinc-50">
+    <!-- Descrição da transação -->
+    <td class="px-6 py-3"><%= transaction.description %></td>
 
-                  <!-- Ícone de Exclusão -->
-                  <%= link to: ~p"/transactions/#{transaction.id}", method: :delete, data: [confirm: "Tem certeza que deseja excluir?"], class: "text-red-600 hover:underline" do %>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                      <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
-                    </svg>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+    <!-- Tipo da transação (Receita ou Despesa) -->
+    <td class="px-6 py-3">
+      <%= if transaction.type == "receita", do: "Receita", else: "Despesa" %>
+    </td>
+
+    <!-- Valor da transação com formatação condicional -->
+    <td class="px-6 py-3">
+      <%= if transaction.type == "receita" do %>
+        <span class="text-green-600">+ R$ <%= Decimal.to_string(transaction.amount) %></span>
+      <% else %>
+        <span class="text-red-600">- R$ <%= Decimal.to_string(transaction.amount) %></span>
+      <% end %>
+    </td>
+
+    <!-- Período da transação (convertido para nome) -->
+    <td class="px-6 py-3"><%= period_to_name(transaction.period) %></td>
+
+    <!-- Ações de edição e exclusão -->
+    <td class="px-6 py-3">
+      <%= link "Editar", to: ~p"/transactions/#{transaction.id}/edit", class: "text-blue-600 hover:underline" %>
+      <%= link "Excluir", to: ~p"/transactions/#{transaction.id}", method: :delete, data: [confirm: "Tem certeza que deseja excluir?"], class: "text-red-600 hover:underline ml-4" %>
+    </td>
+  </tr>
+<% end %>
+
+
+        </tbody>
+      </table>
     </div>
   </div>
 
-  <!-- Botões de Ação -->
-  <div class="mt-4 flex justify-end gap-6">
-    <a href={~p"/users/#{@current_user.id}/add/transactions"} class="rounded-lg bg-green-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-green-700 focus:ring-2 focus:ring-green-600">
+  <!-- Botões de Adicionar Receita ou Despesa -->
+  <div class="mt-6 flex justify-end space-x-4">
+    <a href={~p"/users/#{@current_user.id}/add/transactions"} class="rounded-lg bg-green-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-green-600/90 focus:ring-2 focus:ring-green-600">
       Adicionar
     </a>
-    <a href={~p"/dashboard"} class="rounded-lg bg-red-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-red-700 focus:ring-2 focus:ring-red-600">
-      Dashboard
-    </a>
+    <!-- Botão Dashboard -->
+  <a href={~p"/dashboard"}
+     class="rounded-lg bg-red-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-red-700 focus:ring-2 focus:ring-red-600">
+    Dashboard
+  </a>
   </div>
 </div>

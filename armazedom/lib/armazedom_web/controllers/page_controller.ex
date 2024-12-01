@@ -12,28 +12,8 @@ defmodule ArmazedomWeb.PageController do
     # Realizando a consulta no banco de dados usando o operador ^ para capturar o valor de user_id
     transactions = Repo.all(from t in Transaction, where: t.user_id == ^user_id)
 
-    # Calculando os valores necessários
-    total_receitas =
-      transactions
-      |> Enum.filter(fn transaction -> transaction.type == "receita" end)
-      |> Enum.map(& &1.amount)
-      |> Enum.reduce(Decimal.new(0), &Decimal.add/2)
-
-    total_despesas =
-      transactions
-      |> Enum.filter(fn transaction -> transaction.type == "despesa" end)
-      |> Enum.map(& &1.amount)
-      |> Enum.reduce(Decimal.new(0), &Decimal.add/2)
-
-    saldo_total = Decimal.sub(total_receitas, total_despesas)
-
-    # Atribuindo as variáveis para o template
-    conn
-    |> assign(:transactions, transactions)
-    |> assign(:total_receitas, total_receitas)
-    |> assign(:total_despesas, total_despesas)
-    |> assign(:saldo_total, saldo_total)
-    |> render(:home)
+    # Passando as transações para o template
+    render(conn, :home, transactions: transactions)
   end
 
   def dashboard(conn, _params) do
