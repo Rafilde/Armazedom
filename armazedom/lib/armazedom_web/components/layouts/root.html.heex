@@ -1,66 +1,94 @@
 <!DOCTYPE html>
-<html lang="en" class="[scrollbar-gutter:stable]">
+<html lang="pt-BR" class="[scrollbar-gutter:stable]">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title suffix=" · Phoenix Framework">
+    <.live_title suffix="">
       <%= assigns[:page_title] || "Armazedom" %>
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}></script>
   </head>
-  <body class="bg-gray-50 font-sans antialiased">
-    <!-- Navbar -->
-    <header class="bg-white shadow-md">
-        <%= if @current_user do %>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center py-4">
-         <.link href={~p"/"} class="text-xl font-bold text-blue-600">
-  Armazedom
-</.link>
-         <ul class="flex items-center gap-6 text-sm font-medium text-gray-700">
-          <li>
-                <span class="text-gray-900 font-semibold">
+  <body class="h-screen flex flex-col antialiased">
+    <%= if @current_user do %>
+      <header class="bg-gradient-to-r from-blue-500 to-blue-700 shadow-lg text-white z-10">
+        <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between items-center">
+            <!-- Logo and Title -->
+            <.link href={~p"/"} class="flex items-center text-2xl font-semibold hover:text-blue-300 transition duration-300">
+              <svg class="w-8 h-8 mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 0l10 5v10l-10 5L0 15V5l10-5z"/></svg>
+              Armazedom
+            </.link>
+            
+            <div class="relative">
+              <button id="user-menu-button" class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                </svg>
+              </button>
+      
+              <div id="user-menu-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-20 text-gray-700">
+                <div class="px-4 py-2 border-b text-sm font-semibold text-gray-800">
                   <%= @current_user.email %>
-                </span>
-              </li>
-              <li>
+                </div>
                 <.link
                   href={~p"/users/settings"}
-                  class="hover:text-blue-600 transition duration-200"
+                  class="flex gap-2 items-center px-4 py-2 text-sm hover:bg-gray-100 transition duration-200"
                 >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                    <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                  </svg>
                   Configuração
                 </.link>
-              </li>
-              <li>
                 <.link
                   href={~p"/users/log_out"}
                   method="delete"
-                  class="hover:text-blue-600 transition duration-200"
+                  class="flex gap-2 items-center px-4 py-2 text-sm text-red-500 hover:bg-red-100 transition duration-200"
                 >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                  </svg>
                   Desconectar
                 </.link>
-              </li>
-         </ul>
-         </div>
-      </div>
-        <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    <% end %>
 
-    </header>
-
-    <!-- Main -->
-    <main>
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <main class="flex-grow bg-[#F2F2F2] flex items-center">
+      <div class="max-w-8xl mx-auto">
         <%= @inner_content %>
       </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6">
-      <div class="max-w-7xl mx-auto text-center">
-        <p>&copy; 2024 Armazedom. All rights reserved.</p>
-      </div>
-    </footer>
+    <%= if @current_user do %>
+      <footer class="bg-blue-700 text-white font-semibold py-6">
+        <div class="text-center">
+          <p>PROJETO DESENVOLVIDO PARA AV3 DA CADEIRA DE PROGRAMAÇÃO FUNCIONAL </p>
+        </div>
+      </footer>
+    <% end %>
   </body>
+  <script>
+    // Javascript usado apenas para estilização
+    document.addEventListener('DOMContentLoaded', function () {
+      const userMenuButton = document.getElementById('user-menu-button');
+      const userMenuDropdown = document.getElementById('user-menu-dropdown');
+      
+      userMenuButton.addEventListener('click', () => {
+        userMenuDropdown.classList.toggle('hidden');
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!userMenuButton.contains(event.target) && !userMenuDropdown.contains(event.target)) {
+          userMenuDropdown.classList.add('hidden');
+        }
+      });
+    });
+  </script>
 </html>

@@ -5,11 +5,11 @@ defmodule ArmazedomWeb.UserForgotPasswordLive do
 
   def render(assigns) do
     ~H"""
-<div class="min-h-screen flex items-center justify-center bg-gray-50">
+<div class="min-h-screen flex items-center justify-center">
   <div class="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
     <!-- Header -->
     <div class="text-center mb-6">
-      <h1 class="text-2xl font-bold text-blue-600">Esqueceu sua senha?</h1>
+      <h1 class="text-3xl font-bold text-blue-600">Esqueceu sua senha?</h1>
       <p class="text-sm text-gray-600 mt-2">
         Enviaremos um link para redefinir sua senha para o seu e-mail.
       </p>

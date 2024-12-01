@@ -6,7 +6,7 @@ defmodule ArmazedomWeb.UserRegistrationLive do
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-2xl bg-white p-8 rounded-lg shadow-lg">
+    <div class="h-full mx-auto max-w-2xl bg-white p-8 rounded-lg shadow-lg">
       <.flash_group flash={@flash} />
 
       <.header class="text-center">
@@ -33,14 +33,14 @@ defmodule ArmazedomWeb.UserRegistrationLive do
           Oops, algo deu errado! Por favor, verifique os erros abaixo.
         </.error>
 
-        <.input field={@form[:email]} type="email" label="Email" required />
-        <.input field={@form[:password]} type="password" label="Senha" required />
+        <.input field={@form[:email]} type="email" placeholder="E-mail" required />
+        <.input field={@form[:password]} type="password" placeholder="Senha" required />
 
         <:actions>
           <div class="w-full">
             <.button
               phx-disable-with="Criando conta..."
-              class="w-full py-3 px-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
+              class="w-full py-3 mt-10 px-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
             >
               Criar uma conta <span aria-hidden="true">→</span>
             </.button>
