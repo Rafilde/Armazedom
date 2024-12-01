@@ -5,6 +5,7 @@ defmodule ArmazedomWeb.PageHTML do
   See the `page_html` directory for all templates available.
   """
   use ArmazedomWeb, :html
+  use PhoenixHTMLHelpers
 
   embed_templates "page_html/*"
 

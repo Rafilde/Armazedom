@@ -15,4 +15,24 @@ defmodule ArmazedomWeb.PageController do
     # Passando as transações para o template
     render(conn, :home, transactions: transactions)
   end
+
+  def delete_transaction(conn, %{"id" => id}) do
+    # Encontrar a transação pelo ID
+    transaction = Repo.get(Transaction, id)
+
+    # Excluir a transação se encontrada
+    case transaction do
+      nil ->
+        conn
+        |> put_flash(:error, "Transação não encontrada!")
+        |> redirect(to: "/")
+
+      _ ->
+        Repo.delete(transaction)
+
+        conn
+        |> put_flash(:info, "Transação excluída com sucesso!")
+        |> redirect(to: "/")
+    end
+  end
 end

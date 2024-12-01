@@ -79,4 +79,10 @@ defmodule ArmazedomWeb.Router do
     live "/add/transactions", TransitionLive, :add_transaction
   end
 
+  scope "/", ArmazedomWeb do
+    pipe_through :browser
+
+    get "/", PageController, :home
+    delete "/transactions/:id", PageController, :delete_transaction
+  end
 end
