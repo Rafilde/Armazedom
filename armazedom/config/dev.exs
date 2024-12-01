@@ -2,10 +2,10 @@ import Config
 
 # Configure your database
 config :armazedom, Armazedom.Repo,
-  username: "armazedom_user",
-  password: "armazedom_password",
+  username: "admin",
+  password: "admin",
   hostname: "localhost",
-  database: "armazedom_dev",
+  database: "armazedom_db",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
