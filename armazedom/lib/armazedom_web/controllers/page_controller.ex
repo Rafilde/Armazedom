@@ -16,6 +16,11 @@ defmodule ArmazedomWeb.PageController do
     render(conn, :home, transactions: transactions)
   end
 
+  def dashboard(conn, _params) do
+    # Renderizar a página do Dashboard
+    render(conn, "dashboard.html")
+  end
+
   def delete_transaction(conn, %{"id" => id}) do
     # Encontrar a transação pelo ID
     transaction = Repo.get(Transaction, id)
@@ -33,6 +38,53 @@ defmodule ArmazedomWeb.PageController do
         conn
         |> put_flash(:info, "Transação excluída com sucesso!")
         |> redirect(to: "/")
+    end
+  end
+
+  def edit_transaction(conn, %{"id" => id}) do
+    # Encontrar a transação com base no ID
+    transaction = Repo.get(Transaction, id)
+
+    # Se a transação não for encontrada, exibe uma mensagem de erro
+    if transaction do
+      # Criar o changeset para a transação
+      changeset = Transaction.changeset(transaction, %{})
+
+      # Renderiza o formulário de edição com o changeset
+      render(conn, "edit_transaction.html", transaction: transaction, changeset: changeset)
+    else
+      conn
+      |> put_flash(:error, "Transação não encontrada!")
+      |> redirect(to: "/")
+    end
+  end
+
+
+  def update_transaction(conn, %{"id" => id, "transaction" => transaction_params}) do
+    # Converte as chaves do map para átomos
+    transaction_params = Enum.map(transaction_params, fn {k, v} ->
+      {String.to_atom(k), v}
+    end)
+    |> Enum.into(%{})
+
+    transaction = Repo.get(Armazedom.Financials.Transaction, id)
+
+    if transaction do
+      changeset = Armazedom.Financials.Transaction.changeset(transaction, Map.put(transaction_params, :user_id, transaction.user_id))
+
+      case Repo.update(changeset) do
+        {:ok, _updated_transaction} ->
+          conn
+          |> put_flash(:info, "Transação atualizada com sucesso!")
+          |> redirect(to: "/")
+
+        {:error, changeset} ->
+          render(conn, "edit_transaction.html", transaction: transaction, changeset: changeset)
+      end
+    else
+      conn
+      |> put_flash(:error, "Transação não encontrada!")
+      |> redirect(to: "/")
     end
   end
 end

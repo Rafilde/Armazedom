@@ -85,7 +85,7 @@
 
     <!-- Ações de edição e exclusão -->
     <td class="px-6 py-3">
-      <button class="text-blue-600 hover:underline">Editar</button>
+      <%= link "Editar", to: ~p"/transactions/#{transaction.id}/edit", class: "text-blue-600 hover:underline" %>
       <%= link "Excluir", to: ~p"/transactions/#{transaction.id}", method: :delete, data: [confirm: "Tem certeza que deseja excluir?"], class: "text-red-600 hover:underline ml-4" %>
     </td>
   </tr>
@@ -98,9 +98,14 @@
   </div>
 
   <!-- Botões de Adicionar Receita ou Despesa -->
-  <div class="mt-6 flex justify-end">
+  <div class="mt-6 flex justify-end space-x-4">
     <a href={~p"/users/#{@current_user.id}/add/transactions"} class="rounded-lg bg-green-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-green-600/90 focus:ring-2 focus:ring-green-600">
       Adicionar
     </a>
+    <!-- Botão Dashboard -->
+  <a href={~p"/dashboard"}
+     class="rounded-lg bg-red-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-red-700 focus:ring-2 focus:ring-red-600">
+    Dashboard
+  </a>
   </div>
 </div>

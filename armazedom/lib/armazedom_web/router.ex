@@ -84,5 +84,13 @@ defmodule ArmazedomWeb.Router do
 
     get "/", PageController, :home
     delete "/transactions/:id", PageController, :delete_transaction
+    get "/transactions/:id/edit", PageController, :edit_transaction 
+    put "/transactions/update/:id", PageController, :update_transaction
+  end
+
+  scope "/", ArmazedomWeb do
+    pipe_through [:browser, :redirect_if_not_authenticated]
+
+    get "/dashboard", PageController, :dashboard
   end
 end
