@@ -4,14 +4,16 @@ defmodule ArmazedomWeb.TransitionLive do
 
   def render(assigns) do
     ~H"""
-    <div class="p-4 max-w-lg mx-auto">
-      <h1 class="text-xl font-semibold mb-4">Adicionar receita ou despesa</h1>
+    <div class="p-6 max-w-3xl mx-auto bg-white rounded-lg shadow-lg">
+      <div class="bg-gradient-to-r from-blue-500 to-blue-700 rounded-t-lg px-6 py-4 text-white">
+        <h1 class="text-2xl font-semibold">Adicionar Receita ou Despesa</h1>
+      </div>
 
-      <form phx-submit="salvar" class="space-y-4">
+      <form phx-submit="salvar" class="space-y-6 mt-4">
         <div>
           <label for="tipo" class="block text-sm font-medium text-zinc-900">Tipo</label>
           <select name="type" id="type" value={@type}
-            class="block w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600">
+            class="block w-full rounded-md border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-700 shadow-sm focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition ease-in-out duration-150">
             <option value="receita">Receita</option>
             <option value="despesa">Despesa</option>
           </select>
@@ -20,13 +22,13 @@ defmodule ArmazedomWeb.TransitionLive do
         <div>
           <label for="descricao" class="block text-sm font-medium text-zinc-900">Descrição</label>
           <input type="text" id="descricao" name="description" value={@description}
-            class="block w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600" required />
+            class="block w-full rounded-md border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-700 shadow-sm focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition ease-in-out duration-150" required />
         </div>
 
         <div>
           <label for="periodo" class="block text-sm font-medium text-zinc-900">Período</label>
           <select name="period" id="periodo" value={@period}
-          class="block w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600" required>
+            class="block w-full rounded-md border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-700 shadow-sm focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition ease-in-out duration-150" required>
             <option value="15">Quinzenal</option>
             <option value="30">Mensal</option>
             <option value="90">Trimestral</option>
@@ -38,14 +40,14 @@ defmodule ArmazedomWeb.TransitionLive do
         <div>
           <label for="valor" class="block text-sm font-medium text-zinc-900">Valor</label>
           <input type="number" step="0.01" id="valor" name="amount" value={@amount}
-            class="block w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600" required />
+            class="block w-full rounded-md border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-700 shadow-sm focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition ease-in-out duration-150" required />
         </div>
 
-        <div class="flex justify-end mt-6">
-          <button type="button" phx-click="cancelar" class="rounded-lg bg-gray-300 px-6 py-2 text-sm font-semibold text-zinc-900 shadow-md hover:bg-gray-300/90">
+        <div class="flex justify-end mt-6 space-x-4">
+          <button type="button" phx-click="cancelar" class="rounded-md bg-gray-400 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200">
             Cancelar
           </button>
-          <button type="submit" class="ml-4 rounded-lg bg-blue-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-600/90 focus:ring-2 focus:ring-blue-600">
+          <button type="submit" class="rounded-md bg-blue-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 transition duration-200">
             Salvar
           </button>
         </div>
