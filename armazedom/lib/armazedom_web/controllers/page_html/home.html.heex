@@ -63,8 +63,7 @@
         </thead>
         <tbody>
           <!-- Exemplo de transações -->
-          <!-- Exemplo de transações -->
-<%= for transaction <- @transactions do %>
+          <%= for transaction <- @transactions do %>
   <tr class="border-b last:border-none hover:bg-zinc-50">
     <!-- Descrição da transação -->
     <td class="px-6 py-3"><%= transaction.description %></td>
@@ -83,8 +82,8 @@
       <% end %>
     </td>
 
-    <!-- Período da transação -->
-    <td class="px-6 py-3"><%= transaction.period %></td>
+    <!-- Período da transação (convertido para nome) -->
+    <td class="px-6 py-3"><%= period_to_name(transaction.period) %></td>
 
     <!-- Ações de edição e exclusão -->
     <td class="px-6 py-3">
@@ -93,6 +92,7 @@
     </td>
   </tr>
 <% end %>
+
 
         </tbody>
       </table>
@@ -106,3 +106,5 @@
     </a>
   </div>
 </div>
+
+

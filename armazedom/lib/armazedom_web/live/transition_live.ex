@@ -24,9 +24,15 @@ defmodule ArmazedomWeb.TransitionLive do
         </div>
 
         <div>
-          <label for="periodo" class="block text-sm font-medium text-zinc-900">Periodo (em dias)</label>
-          <input type="number" id="periodo" name="period" value={@period} min="1"
-            class="block w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600" required />
+          <label for="periodo" class="block text-sm font-medium text-zinc-900">Período</label>
+          <select name="period" id="periodo" value={@period}
+          class="block w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600" required>
+            <option value="15">Quinzenal</option>
+            <option value="30">Mensal</option>
+            <option value="90">Trimestral</option>
+            <option value="180">Semestral</option>
+            <option value="365">Anual</option>
+          </select>
         </div>
 
         <div>
@@ -49,7 +55,7 @@ defmodule ArmazedomWeb.TransitionLive do
   end
 
 
-  def mount(%{"user_id" => user_id} = para, _session, socket) do
+  def mount(%{"user_id" => user_id}, _session, socket) do
     # Tenta converter o user_id para inteiro, se possível
     case Integer.parse(user_id) do
       {user_id_int, _rest} ->
