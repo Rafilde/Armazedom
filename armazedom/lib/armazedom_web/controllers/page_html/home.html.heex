@@ -25,7 +25,7 @@
 
       <!-- Ordenar por -->
       <select class="block w-full rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600 sm:w-auto">
-      <option value="todos-precos" class="font-bold">Todos</option>
+        <option value="todos-precos" class="font-bold">Todos</option>
         <option value="maiores">Maiores Preços</option>
         <option value="menores">Menores Preços</option>
       </select>
@@ -55,8 +55,7 @@
         <thead class="bg-zinc-50 text-zinc-900">
           <tr>
             <th class="px-6 py-3">Descrição</th>
-            <th class="px-6 py-3">Categoria</th>
-            <th class="px-6 py-3">Data</th>
+            <th class="px-6 py-3">Tipo</th>
             <th class="px-6 py-3">Valor</th>
             <th class="px-6 py-3">Período</th>
             <th class="px-6 py-3">Ações</th>
@@ -64,17 +63,37 @@
         </thead>
         <tbody>
           <!-- Exemplo de transações -->
-          <tr class="border-b last:border-none hover:bg-zinc-50">
-            <td class="px-6 py-3">Salário</td>
-            <td class="px-6 py-3">Receita</td>
-            <td class="px-6 py-3">28/11/2024</td>
-            <td class="px-6 py-3 text-green-600">+ R$ 5.000,00</td>
-            <td class="px-6 py-3">Mensal</td>
-            <td class="px-6 py-3">
-              <button class="text-blue-600 hover:underline">Editar</button>
-              <button class="text-red-600 hover:underline ml-4">Excluir</button>
-            </td>
-          </tr>
+          <!-- Exemplo de transações -->
+<%= for transaction <- @transactions do %>
+  <tr class="border-b last:border-none hover:bg-zinc-50">
+    <!-- Descrição da transação -->
+    <td class="px-6 py-3"><%= transaction.description %></td>
+
+    <!-- Tipo da transação (Receita ou Despesa) -->
+    <td class="px-6 py-3">
+      <%= if transaction.type == "receita", do: "Receita", else: "Despesa" %>
+    </td>
+
+    <!-- Valor da transação com formatação condicional -->
+    <td class="px-6 py-3">
+      <%= if transaction.type == "receita" do %>
+        <span class="text-green-600">+ R$ <%= Decimal.to_string(transaction.amount) %></span>
+      <% else %>
+        <span class="text-red-600">- R$ <%= Decimal.to_string(transaction.amount) %></span>
+      <% end %>
+    </td>
+
+    <!-- Período da transação -->
+    <td class="px-6 py-3"><%= transaction.period %></td>
+
+    <!-- Ações de edição e exclusão -->
+    <td class="px-6 py-3">
+      <button class="text-blue-600 hover:underline">Editar</button>
+      <button class="text-red-600 hover:underline ml-4">Excluir</button>
+    </td>
+  </tr>
+<% end %>
+
         </tbody>
       </table>
     </div>
@@ -82,11 +101,8 @@
 
   <!-- Botões de Adicionar Receita ou Despesa -->
   <div class="mt-6 flex justify-end">
-    <a href="/add/incomes" class="rounded-lg bg-green-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-green-600/90 focus:ring-2 focus:ring-green-600">
-      Adicionar Receita
-    </a>
-    <a href="/add/expenses" class="rounded-lg bg-red-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-red-600/90 focus:ring-2 focus:ring-red-600 ml-4">
-      Adicionar Despesa
+    <a href={~p"/users/#{@current_user.id}/add/transactions"} class="rounded-lg bg-green-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-green-600/90 focus:ring-2 focus:ring-green-600">
+      Adicionar
     </a>
   </div>
 </div>
