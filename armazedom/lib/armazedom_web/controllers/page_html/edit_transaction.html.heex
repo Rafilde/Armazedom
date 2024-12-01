@@ -1,33 +1,41 @@
-<%= form_tag "/transactions/update/#{@transaction.id}", method: :put, class: "space-y-6" do %>
-  <div class="mt-6">
-    <label for="description" class="block text-sm font-medium text-zinc-700">Descrição</label>
-    <%= text_input :transaction, :description, class: "mt-1 block w-full rounded-md border-zinc-300 shadow-sm focus:border-blue-600 focus:ring focus:ring-blue-600 focus:ring-opacity-50", value: @transaction.description %>
+<%= form_tag "/transactions/update/#{@transaction.id}", method: :put, class: "p-6 max-w-3xl mx-auto bg-white rounded-lg shadow-lg space-y-6" do %>
+  <div class="bg-gradient-to-r from-blue-500 to-blue-700 rounded-t-md px-4 py-3 text-white mb-6">
+    <h1 class="text-xl font-semibold">Editar Informação da Transação</h1>
   </div>
 
-  <div class="mt-6">
-    <label for="amount" class="block text-sm font-medium text-zinc-700">Valor</label>
-    <%= number_input :transaction, :amount, class: "mt-1 block w-full rounded-md border-zinc-300 shadow-sm focus:border-blue-600 focus:ring focus:ring-blue-600 focus:ring-opacity-50", value: @transaction.amount %>
+  <div>
+    <label for="description" class="block text-sm font-medium text-gray-900">Descrição</label>
+    <%= text_input :transaction, :description, class: "mt-2 block w-full rounded-md border border-gray-300 shadow-sm bg-white px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition ease-in-out duration-150", value: @transaction.description %>
   </div>
 
-  <div class="mt-6">
-    <label for="type" class="block text-sm font-medium text-zinc-700">Tipo</label>
-    <%= select :transaction, :type, ["receita", "despesa"], class: "mt-1 block w-full rounded-md border-zinc-300 shadow-sm focus:border-blue-600 focus:ring focus:ring-blue-600 focus:ring-opacity-50", selected: @transaction.type %>
+  <div>
+    <label for="amount" class="block text-sm font-medium text-gray-900">Valor</label>
+    <%= number_input :transaction, :amount, step: "0.01", class: "mt-2 block w-full rounded-md border border-gray-300 shadow-sm bg-white px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition ease-in-out duration-150", value: @transaction.amount %>
   </div>
 
-  <div class="mt-6">
-  <label for="period" class="block text-sm font-medium text-zinc-700">Período</label>
-  <%= select :transaction, :period, [
-    {"Quinzenal", 15},
-    {"Mensal", 30},
-    {"Trimestral", 90},
-    {"Semestral", 180},
-    {"Anual", 365}
-  ], class: "mt-1 block w-full rounded-md border-zinc-300 shadow-sm focus:border-blue-600 focus:ring focus:ring-blue-600 focus:ring-opacity-50", selected: @transaction.period %>
-  <p class="mt-2 text-sm text-zinc-600">Valor: <%= period_to_name(@transaction.period) %></p>
-</div>
+  <div>
+    <label for="type" class="block text-sm font-medium text-gray-900">Tipo</label>
+    <%= select :transaction, :type, ["Receita", "Despesa"], class: "mt-2 block w-full rounded-md border border-gray-300 shadow-sm bg-white px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition ease-in-out duration-150", selected: @transaction.type %>
+  </div>
 
+  <div>
+    <label for="period" class="block text-sm font-medium text-gray-900">Período</label>
+    <%= select :transaction, :period, [
+      {"Quinzenal", 15},
+      {"Mensal", 30},
+      {"Trimestral", 90},
+      {"Semestral", 180},
+      {"Anual", 365}
+    ], class: "mt-2 block w-full rounded-md border border-gray-300 shadow-sm bg-white px-4 py-2 text-sm text-gray-800 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition ease-in-out duration-150", selected: @transaction.period %>
+    <p class="mt-2 text-sm text-gray-600">Período atual: <%= period_to_name(@transaction.period) %></p>
+  </div>
 
-  <div class="mt-6 flex justify-end">
-    <%= submit "Salvar", class: "rounded-lg bg-green-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-green-600/90" %>
+  <div class="mt-8 flex justify-end space-x-4">
+    <a
+    href={~p"/"}
+    class="rounded-md bg-gray-400 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-200">
+      Cancelar
+    </a>
+    <%= submit "Salvar", class: "rounded-md bg-green-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600 transition duration-200" %>
   </div>
 <% end %>
