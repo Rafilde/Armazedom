@@ -4,7 +4,7 @@ defmodule ArmazedomWeb.TransitionLive do
 
   def render(assigns) do
     ~H"""
-    <div class="p-4 max-w-lg mx-auto">
+    <div class="min-h-screen p-4 max-w-lg mx-auto">
       <h1 class="text-xl font-semibold mb-4">Adicionar receita ou despesa</h1>
 
       <form phx-submit="salvar" class="space-y-4">

@@ -3,12 +3,12 @@ defmodule ArmazedomWeb.UserLoginLive do
 
   def render(assigns) do
     ~H"""
-    <div class="min-h-screen flex items-center justify-center bg-gray-50">
-      <div class="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
+    <div class="min-h-screen flex items-center justify-center">
+      <div class="bg-white rounded-lg shadow-lg p-8 max-w-[400px] w-full">
         <!-- Header -->
-        <div class="text-center mb-6">
-          <h1 class="text-2xl font-bold text-blue-600">Bem-vindo de volta!</h1>
-          <p class="text-sm text-gray-600 mt-2">
+        <div class="text-center mb-14">
+          <h1 class="text-3xl font-bold text-blue-600 tracking-wide">Bem-vindo de volta!</h1>
+          <p class="text-sm text-gray-400 mt-2 tracking-wider">
             Faça login para acessar sua conta e continuar.
           </p>
         </div>
@@ -20,7 +20,7 @@ defmodule ArmazedomWeb.UserLoginLive do
             <.input
               field={@form[:email]}
               type="email"
-              label="Email"
+              placeholder="Informe seu e-mail"
               required
               class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
@@ -31,9 +31,9 @@ defmodule ArmazedomWeb.UserLoginLive do
             <.input
               field={@form[:password]}
               type="password"
-              label="Senha"
+              placeholder="Informe sua senha"
               required
-              class="block w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              class="block w-full px-4 py-2 bg-gray-50 border border-gray-400 rounded-md focus:ring-2 focus:ring-blue-300 focus:outline-none"
             />
           </div>
 

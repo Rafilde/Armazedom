@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="[scrollbar-gutter:stable]">
+<html lang="pt-BR" class="[scrollbar-gutter:stable]">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,17 +10,17 @@
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}></script>
   </head>
-  <body class="bg-gray-50 font-sans antialiased">
+  <body class="bg-gray-50 flex flex-col min-h-screen antialiased">
     <!-- Navbar -->
-    <header class="bg-white shadow-md">
-        <%= if @current_user do %>
+    <%= if @current_user do %>
+      <header class="bg-white shadow-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center py-4">
-         <.link href={~p"/"} class="text-xl font-bold text-blue-600">
-  Armazedom
-</.link>
-         <ul class="flex items-center gap-6 text-sm font-medium text-gray-700">
-          <li>
+          <div class="flex justify-between items-center py-4">
+            <.link href={~p"/"} class="text-xl font-bold text-blue-600">
+              Armazedom
+            </.link>
+            <ul class="flex items-center gap-6 text-sm font-medium text-gray-700">
+              <li>
                 <span class="text-gray-900 font-semibold">
                   <%= @current_user.email %>
                 </span>
@@ -42,25 +42,23 @@
                   Desconectar
                 </.link>
               </li>
-         </ul>
-         </div>
-      </div>
-        <% end %>
-
-    </header>
+            </ul>
+          </div>
+        </div>
+      </header>
+    <% end %>
 
     <!-- Main -->
-    <main>
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <main class="flex-grow bg-blue-50">
+      <div class="max-w-7xl mx-auto h-full">
         <%= @inner_content %>
       </div>
     </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6">
-      <div class="max-w-7xl mx-auto text-center">
-        <p>&copy; 2024 Armazedom. All rights reserved.</p>
-      </div>
-    </footer>
+    
+    <%= if @current_user do %>
+      <footer class="bg-red-200 p-4">
+        TESTE CARALHO
+      </footer>
+    <% end %>
   </body>
 </html>

@@ -6,48 +6,51 @@ defmodule ArmazedomWeb.UserRegistrationLive do
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-2xl bg-white p-8 rounded-lg shadow-lg">
-      <.flash_group flash={@flash} />
+    <div class="min-h-screen flex items-center justify-center">
+      <div class="h-vh mx-auto max-w-[380px] bg-white p-8 rounded-lg shadow-lg">
+        <.flash_group flash={@flash} />
 
-      <.header class="text-center">
-        <h1 class="text-2xl font-bold text-blue-600">Registrar uma conta</h1>
-        <:subtitle>
-          Já tem uma conta?
-          <.link navigate={~p"/users/log_in"} class="font-semibold text-blue-600 hover:underline">
-            Faça login
-          </.link>
-          na sua conta agora.
-        </:subtitle>
-      </.header>
+        <.header class="text-center mb-10">
+          <h1 class="text-2xl font-bold text-blue-600">Registrar uma conta</h1>
+          <:subtitle>
+            Já tem conta?
+            <.link navigate={~p"/users/log_in"} class="font-semibold text-blue-400 hover:underline">
+              Faça login
+            </.link>
+            para entrar.
+          </:subtitle>
+        </.header>
 
-      <.simple_form
-        for={@form}
-        id="registration_form"
-        phx-submit="save"
-        phx-change="validate"
-        phx-trigger-action={@trigger_submit}
-        action={~p"/users/log_in?_action=registered"}
-        method="post"
-      >
-        <.error :if={@check_errors}>
-          Oops, algo deu errado! Por favor, verifique os erros abaixo.
-        </.error>
+        <.simple_form
+          for={@form}
+          id="registration_form"
+          phx-submit="save"
+          phx-change="validate"
+          phx-trigger-action={@trigger_submit}
+          action={~p"/users/log_in?_action=registered"}
+          method="post"
+        >
+          <.error :if={@check_errors}>
+            Oops, algo deu errado! Por favor, verifique os erros abaixo.
+          </.error>
 
-        <.input field={@form[:email]} type="email" label="Email" required />
-        <.input field={@form[:password]} type="password" label="Senha" required />
+          <.input field={@form[:email]} type="email" label="Email" required />
+          <.input field={@form[:password]} type="password" label="Senha" required />
 
-        <:actions>
-          <div class="w-full">
-            <.button
-              phx-disable-with="Criando conta..."
-              class="w-full py-3 px-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
-            >
-              Criar uma conta <span aria-hidden="true">→</span>
-            </.button>
-          </div>
-        </:actions>
-      </.simple_form>
+          <:actions>
+            <div class="w-full mt-8">
+              <.button
+                phx-disable-with="Criando conta..."
+                class="w-full py-3 px-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
+              >
+                Criar uma conta <span aria-hidden="true">→</span>
+              </.button>
+            </div>
+          </:actions>
+        </.simple_form>
+      </div>
     </div>
+
     """
   end
 

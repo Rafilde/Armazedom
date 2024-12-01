@@ -5,12 +5,12 @@ defmodule ArmazedomWeb.UserForgotPasswordLive do
 
   def render(assigns) do
     ~H"""
-<div class="min-h-screen flex items-center justify-center bg-gray-50">
-  <div class="bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
+<div class="min-h-screen flex items-center justify-center">
+  <div class="bg-white rounded-lg min-w-[500px] shadow-lg p-8 max-w-sm w-full">
     <!-- Header -->
     <div class="text-center mb-6">
-      <h1 class="text-2xl font-bold text-blue-600">Esqueceu sua senha?</h1>
-      <p class="text-sm text-gray-600 mt-2">
+      <h1 class="text-3xl font-bold text-blue-600">Esqueceu sua senha?</h1>
+      <p class="text-sm text-gray-400 mt-2">
         Enviaremos um link para redefinir sua senha para o seu e-mail.
       </p>
     </div>
@@ -34,18 +34,18 @@ defmodule ArmazedomWeb.UserForgotPasswordLive do
           phx-disable-with="Enviando..."
           class="w-full py-3 px-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-full shadow-lg transition duration-300 ease-in-out transform hover:scale-105"
         >
-          Enviar instruções de redefinição <span aria-hidden="true">→</span>
+          Recuperar <span aria-hidden="true">→</span>
         </.button>
       </div>
     </.simple_form>
 
     <!-- Footer -->
-    <div class="mt-6 text-center text-sm text-gray-600">
+    <div class="flex gap-4 justify-center mt-8 text-center text-sm text-gray-600">
       <.link
         href={~p"/users/register"}
         class="font-semibold text-blue-600 hover:underline"
       >
-        Cadastre-se agora
+        Cadastre-se
       </.link>
       |
       <.link
