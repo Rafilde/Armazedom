@@ -52,15 +52,30 @@ defmodule ArmazedomWeb.TransitionLive do
     """
   end
 
-  def mount(params, _session, socket) do
-    tipo = case params["tipo"] do
-      "receita" -> "Receita"
-      "despesa" -> "Despesa"
-      _ -> "Transação"
-    end
+  #def handle_params(params, session, socket) do
+  #  user_id = session["user_id"]  # Acessando o user_id da sessão
+  #  IO.inspect(user_id, label: "ID do Usuário da Sessão")
 
-    {:ok, assign(socket, tipo: tipo, descricao: "", valor: "", period: "mensal", data: "")}
+   # tipo = case params["tipo"] do
+  #    "receita" -> "Receita"
+  #    "despesa" -> "Despesa"
+   #   _ -> "Transação"
+   # end
+
+  #  {:ok, assign(socket, tipo: tipo, descricao: "", valor: "", period: "mensal", data: "", user_id: user_id)}
+ # end
+
+ def mount(params, _session, socket) do
+  tipo = case params["tipo"] do
+    "receita" -> "Receita"
+    "despesa" -> "Despesa"
+    _ -> "Transação"
   end
+
+  # Atribuindo valores ao socket
+  {:ok, assign(socket, tipo: tipo, descricao: "", valor: "", period: "mensal", data: "", user_id: 1)}
+end
+
 
   def handle_event("salvar", %{"descricao" => descricao, "valor" => valor, "period" => period}, socket) do
     # Criando a estrutura da receita com os dados do formulário

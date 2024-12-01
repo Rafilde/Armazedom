@@ -22,10 +22,11 @@ defmodule ArmazedomWeb.UserSessionController do
     %{"email" => email, "password" => password} = user_params
 
     if user = Accounts.get_user_by_email_and_password(email, password) do
+      IO.inspect(user.id, label: "ID do Usuário") #vendo o id do usuário
       conn
       # Armazenando o ID do usuário na sessão
-      |> put_session(:user_id, user.id)
       |> put_flash(:info, info)
+      #|> put_session(:user_id, user.id)
       |> UserAuth.log_in_user(user, user_params)
     else
       # In order to prevent user enumeration attacks, don't disclose whether the email is registered.
