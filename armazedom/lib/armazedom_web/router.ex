@@ -90,7 +90,5 @@ defmodule ArmazedomWeb.Router do
 
   scope "/", ArmazedomWeb do
     pipe_through [:browser, :redirect_if_not_authenticated]
-
-    get "/dashboard", PageController, :dashboard
   end
 end

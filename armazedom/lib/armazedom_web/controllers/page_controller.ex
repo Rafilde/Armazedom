@@ -74,8 +74,6 @@ defmodule ArmazedomWeb.PageController do
     |> render(:home)
   end
 
-  def dashboard(conn, _params) do
-    # Renderizar a página do Dashboard
   def delete_transaction(conn, %{"id" => id}) do
     # Encontrar a transação pelo ID
     transaction = Repo.get(Transaction, id)
