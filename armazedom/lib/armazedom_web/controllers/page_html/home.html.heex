@@ -29,33 +29,39 @@
   <div class="mt-4 bg-white rounded-lg shadow-md p-6">
     <!-- Filtros -->
     <h2 class="text-lg font-semibold text-blue-900 mb-2">Filtros:</h2>
-    <div class="flex flex-wrap gap-4 mb-6">
-      <!-- Tipo de transação -->
-      <select class="w-full sm:w-auto rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600">
-        <option value="todas" class="font-bold">Todos</option>
-        <option value="receitas">Receitas</option>
-        <option value="despesas">Despesas</option>
-      </select>
-      <!-- Ordenar por -->
-      <select class="w-full sm:w-auto rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600">
-        <option value="todos-precos" class="font-bold">Todos</option>
-        <option value="maiores">Maiores Preços</option>
-        <option value="menores">Menores Preços</option>
-      </select>
-      <!-- Filtro de Período -->
-      <select class="w-full sm:w-auto rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600">
-        <option value="todos" class="font-bold">Período</option>
-        <option value="mensal">Mensal</option>
-        <option value="semanal">Semanal</option>
-        <option value="anual">Anual</option>
-        <option value="diario">Diário</option>
-        <option value="quinzenal">Quinzenal</option>
-      </select>
-      <!-- Botão de Aplicar Filtros -->
-      <button class="rounded-lg bg-blue-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-600/90 focus:ring-2 focus:ring-blue-600">
-        Aplicar
-      </button>
-    </div>
+    <form method="get" action="/">
+      <div class="flex flex-wrap gap-4 mb-6">
+        <!-- Tipo de transação -->
+        <select name="tipo" class="w-full sm:w-auto rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600">
+          <option value="todos" selected={@filtro_tipo == "todos"} class="font-bold">Todos</option>
+          <option value="receitas" selected={@filtro_tipo == "receitas"}>Receitas</option>
+          <option value="despesas" selected={@filtro_tipo == "despesas"}>Despesas</option>
+        </select>
+    
+        <!-- Ordenar por -->
+        <select name="ordenar" class="w-full sm:w-auto rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600">
+          <option value="todos-precos" selected={@filtro_ordenar == "todos-precos"} class="font-bold">Todos</option>
+          <option value="maiores" selected={@filtro_ordenar == "maiores"}>Maiores Preços</option>
+          <option value="menores" selected={@filtro_ordenar == "menores"}>Menores Preços</option>
+        </select>
+    
+        <!-- Filtro de Período -->
+        <select name="periodo" class="w-full sm:w-auto rounded-lg border border-zinc-300 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm focus:border-blue-600 focus:ring-blue-600">
+          <option value="todos" selected={@filtro_periodo == "todos"} class="font-bold">Período</option>
+          <option value="mensal" selected={@filtro_periodo == "mensal"}>Mensal</option>
+          <option value="semanal" selected={@filtro_periodo == "semanal"}>Semanal</option>
+          <option value="anual" selected={@filtro_periodo == "anual"}>Anual</option>
+          <option value="diario" selected={@filtro_periodo == "diario"}>Diário</option>
+          <option value="quinzenal" selected={@filtro_periodo == "quinzenal"}>Quinzenal</option>
+        </select>
+    
+        <!-- Botão de Aplicar Filtros -->
+        <button type="submit" class="rounded-lg bg-blue-600 px-6 py-2 text-sm font-semibold text-white shadow-md hover:bg-blue-600/90 focus:ring-2 focus:ring-blue-600">
+          Aplicar
+        </button>
+      </div>
+    </form>
+    
 
     <!-- Tabela de Transações com Limite de Registros -->
     <div class="overflow-x-auto">
